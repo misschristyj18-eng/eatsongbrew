@@ -3,39 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register | EatSongBrew</title>
+    <title>My Account | EatSongBrew</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body data-page="account">
     <header class="topbar">
       <div class="container nav">
         <div class="brand">EatSongBrew</div>
         <nav>
           <a href="./index.html">Home</a>
-          <a href="./login.html">Login</a>
+          <a href="./index.html" id="logout-link">Logout</a>
         </nav>
       </div>
     </header>
 
-    <main class="container auth-shell">
-      <section class="card form-card">
-        <h2>Create an account</h2>
-        <div id="register-message" class="alert hidden"></div>
-        <form id="register-form">
-          <label>
-            Full name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
-          <button class="button primary" type="submit">Register</button>
-        </form>
+    <main class="container">
+      <section class="card">
+        <h2 id="welcome-name">Welcome</h2>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <p><strong>Role:</strong> <span id="user-role"></span></p>
+      </section>
+
+      <section class="card">
+        <h3>Your orders</h3>
+        <ul id="orders-list" class="order-list"></ul>
       </section>
     </main>
 

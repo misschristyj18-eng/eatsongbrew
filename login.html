@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EatSongBrew</title>
+    <title>Login | EatSongBrew</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -12,70 +12,29 @@
         <div class="brand">EatSongBrew</div>
         <nav>
           <a href="./index.html">Home</a>
-          <a href="./admin.html">Admin</a>
-          <a id="nav-login" href="./login.html">Login</a>
-          <a id="nav-register" href="./register.html">Register</a>
-          <a id="nav-logout" href="./index.html" class="hidden">Logout</a>
+          <a href="./register.html">Register</a>
         </nav>
       </div>
     </header>
 
-    <main class="container">
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Freshly brewed daily</p>
-          <h1>Order your favorite drinks and bites.</h1>
-          <p>Simple ordering, secure login, and a clean checkout flow for your café.</p>
-          <a id="cta-link" class="button primary" href="./register.html">Create an account</a>
-        </div>
-      </section>
-
-      <section class="grid three">
-        <article class="card">
-          <h3>Signature Brew</h3>
-          <p>Rich espresso, slow roasted beans, and a smooth finish.</p>
-          <strong>$5.50</strong>
-        </article>
-        <article class="card">
-          <h3>Garden Matcha</h3>
-          <p>Bright, earthy matcha blended with silky oat milk.</p>
-          <strong>$6.00</strong>
-        </article>
-        <article class="card">
-          <h3>Breakfast Toast</h3>
-          <p>Avocado, chili flakes, lemon, and a side of roasted tomatoes.</p>
-          <strong>$8.00</strong>
-        </article>
-      </section>
-
-      <section class="card order-box">
-        <h2>Place an order</h2>
-        <form id="order-form">
-          <div class="form-grid">
-            <label>
-              Item
-              <select name="item_name">
-                <option>Signature Brew</option>
-                <option>Garden Matcha</option>
-                <option>Breakfast Toast</option>
-                <option>Cold Brew</option>
-              </select>
-            </label>
-            <label>
-              Quantity
-              <input type="number" name="quantity" min="1" value="1" required />
-            </label>
-          </div>
+    <main class="container auth-shell">
+      <section class="card form-card">
+        <h2>Login</h2>
+        <div id="login-message" class="alert hidden"></div>
+        <form id="login-form">
           <label>
-            Notes
-            <textarea name="notes" rows="3" placeholder="Add extra notes for your order..."></textarea>
+            Email
+            <input type="email" name="email" required />
           </label>
-          <button class="button primary" type="submit">Save order</button>
+          <label>
+            Password
+            <input type="password" name="password" required />
+          </label>
+          <button class="button primary" type="submit">Sign in</button>
         </form>
       </section>
     </main>
 
-    <footer class="footer">© 2026 EatSongBrew</footer>
     <script src="./app.js"></script>
   </body>
 </html>

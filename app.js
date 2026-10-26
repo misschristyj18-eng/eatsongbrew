@@ -1,184 +1,319 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7f3ef;
-  color: #1f1f1f;
-}
+const STORAGE_KEY = 'eatSongBrewState';
 
-* { box-sizing: border-box; }
+const emptyState = () => ({
+  users: [
+    {
+      id: 1,
+      name: 'Admin User',
+      email: 'admin@eatsongbrew.com',
+      password: 'admin123',
+      role: 'admin'
+    }
+  ],
+  orders: [],
+  currentUserId: null
+});
 
-.container {
-  width: min(1100px, 90vw);
-  margin: 0 auto;
-}
-
-.topbar {
-  background: #2d221b;
-  color: #fff;
-  padding: 16px 0;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-nav {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-}
-
-nav a {
-  color: #f5ede6;
-  text-decoration: none;
-}
-
-.hero {
-  background: linear-gradient(135deg, #f5d7a0, #f4efe9);
-  min-height: 260px;
-  display: flex;
-  align-items: center;
-  padding: 40px 0;
-  margin: 32px 0;
-  border-radius: 16px;
-}
-
-.hero h1 {
-  font-size: clamp(2.2rem, 4vw, 4rem);
-  margin: 8px 0 16px;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.75rem;
-  color: #685748;
-}
-
-.grid {
-  display: grid;
-  gap: 18px;
-}
-
-.grid.three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-  margin-bottom: 24px;
-}
-
-.order-box {
-  margin-top: 24px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-input, select, textarea, button {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #d4c6b8;
-  border-radius: 10px;
-  font-size: 1rem;
-  margin-top: 8px;
-}
-
-button, .button {
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  transition: 0.2s ease;
-}
-
-.button.primary {
-  background: #8c4b34;
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 10px;
-}
-
-.auth-shell {
-  display: grid;
-  place-items: center;
-  min-height: 70vh;
-}
-
-.form-card {
-  width: min(500px, 90vw);
-}
-
-.alert {
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin: 12px 0;
-}
-
-.alert.error {
-  background: #fee7e7;
-  color: #8f1d1d;
-}
-
-.alert.success {
-  background: #e9f9ee;
-  color: #1f6b44;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.order-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.order-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  background: #f9f7f4;
-  border-radius: 8px;
-  padding: 12px 14px;
-}
-
-.footer {
-  text-align: center;
-  padding: 24px;
-  color: #6d625d;
-}
-
-@media (max-width: 768px) {
-  .grid.three, .form-grid {
-    grid-template-columns: 1fr;
+function getState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(emptyState()));
+    return emptyState();
   }
-  .nav {
-    flex-direction: column;
-    gap: 10px;
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(emptyState()));
+    return emptyState();
   }
 }
+
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function getCurrentUser() {
+  const state = getState();
+  return state.users.find((user) => user.id === state.currentUserId) || null;
+}
+
+function setCurrentUser(userId) {
+  const state = getState();
+  state.currentUserId = userId;
+  saveState(state);
+}
+
+function setFlash(elementId, message, type = 'error') {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  el.textContent = message;
+  el.classList.remove('hidden');
+  el.classList.remove('error', 'success');
+  el.classList.add(type === 'success' ? 'success' : 'error');
+}
+
+function logout() {
+  const state = getState();
+  state.currentUserId = null;
+  saveState(state);
+  window.location.href = './index.html';
+}
+
+function bindGlobalHeader() {
+  const user = getCurrentUser();
+  const loginLink = document.getElementById('nav-login');
+  const registerLink = document.getElementById('nav-register');
+  const logoutLink = document.getElementById('nav-logout');
+  const cta = document.getElementById('cta-link');
+
+  if (user) {
+    if (loginLink) loginLink.classList.add('hidden');
+    if (registerLink) registerLink.classList.add('hidden');
+    if (logoutLink) logoutLink.classList.remove('hidden');
+    if (cta) {
+      cta.textContent = 'Go to your account';
+      cta.href = './my_account.html';
+    }
+  } else {
+    if (loginLink) loginLink.classList.remove('hidden');
+    if (registerLink) registerLink.classList.remove('hidden');
+    if (logoutLink) logoutLink.classList.add('hidden');
+    if (cta) {
+      cta.textContent = 'Create an account';
+      cta.href = './register.html';
+    }
+  }
+
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      logout();
+    });
+  }
+}
+
+function handleRegister() {
+  const form = document.getElementById('register-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const name = (formData.get('name') || '').toString().trim();
+    const email = (formData.get('email') || '').toString().trim();
+    const password = (formData.get('password') || '').toString();
+
+    if (!name || !email || !password) {
+      setFlash('register-message', 'Name, email, and password are required.', 'error');
+      return;
+    }
+
+    const state = getState();
+    const exists = state.users.some((user) => user.email.toLowerCase() === email.toLowerCase());
+    if (exists) {
+      setFlash('register-message', 'That email is already registered.', 'error');
+      return;
+    }
+
+    const newUser = {
+      id: Date.now(),
+      name,
+      email,
+      password,
+      role: 'customer'
+    };
+
+    state.users.push(newUser);
+    saveState(state);
+    setFlash('register-message', 'Account created successfully. Redirecting to login...', 'success');
+
+    setTimeout(() => {
+      window.location.href = './login.html';
+    }, 600);
+  });
+}
+
+function handleLogin() {
+  const form = document.getElementById('login-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const email = (formData.get('email') || '').toString().trim();
+    const password = (formData.get('password') || '').toString();
+
+    if (!email || !password) {
+      setFlash('login-message', 'Email and password are required.', 'error');
+      return;
+    }
+
+    const state = getState();
+    const user = state.users.find(
+      (entry) => entry.email.toLowerCase() === email.toLowerCase() && entry.password === password
+    );
+
+    if (!user) {
+      setFlash('login-message', 'Invalid login. Please check your email and password.', 'error');
+      return;
+    }
+
+    setCurrentUser(user.id);
+    window.location.href = './my_account.html';
+  });
+}
+
+function renderAccountPage() {
+  const user = getCurrentUser();
+  if (!user) {
+    window.location.href = './login.html';
+    return;
+  }
+
+  const emailEl = document.getElementById('user-email');
+  const roleEl = document.getElementById('user-role');
+  const nameEl = document.getElementById('welcome-name');
+  const ordersList = document.getElementById('orders-list');
+  const logoutLink = document.getElementById('logout-link');
+
+  if (nameEl) nameEl.textContent = `Welcome, ${user.name}`;
+  if (emailEl) emailEl.textContent = user.email;
+  if (roleEl) roleEl.textContent = user.role;
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      logout();
+    });
+  }
+
+  const state = getState();
+  const userOrders = state.orders.filter((order) => order.userId === user.id);
+
+  if (!ordersList) return;
+  ordersList.innerHTML = '';
+
+  if (!userOrders.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No orders yet.';
+    ordersList.appendChild(li);
+    return;
+  }
+
+  userOrders.forEach((order) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <strong>${order.itemName}</strong>
+      <span>Qty: ${order.quantity}</span>
+      <span>${order.notes || 'No notes'}</span>
+    `;
+    ordersList.appendChild(li);
+  });
+}
+
+function renderAdminPage() {
+  const user = getCurrentUser();
+  if (!user || user.role !== 'admin') {
+    window.location.href = './login.html';
+    return;
+  }
+
+  const state = getState();
+  const welcome = document.getElementById('admin-welcome');
+  const adminOrders = document.getElementById('admin-orders');
+  const adminUsers = document.getElementById('admin-users');
+
+  if (welcome) {
+    welcome.textContent = `Logged in as ${user.name}.`;
+  }
+
+  if (adminOrders) {
+    adminOrders.innerHTML = '';
+    if (!state.orders.length) {
+      const li = document.createElement('li');
+      li.textContent = 'No orders yet.';
+      adminOrders.appendChild(li);
+    } else {
+      state.orders.forEach((order) => {
+        const userEntry = state.users.find((entry) => entry.id === order.userId);
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${order.itemName}</strong>
+          <span>Qty: ${order.quantity}</span>
+          <span>Customer: ${userEntry ? userEntry.name : 'Guest'}</span>
+        `;
+        adminOrders.appendChild(li);
+      });
+    }
+  }
+
+  if (adminUsers) {
+    adminUsers.innerHTML = '';
+    state.users.forEach((entry) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <strong>${entry.name}</strong>
+        <span>${entry.email}</span>
+      `;
+      adminUsers.appendChild(li);
+    });
+  }
+
+  const logoutLink = document.getElementById('admin-logout');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      logout();
+    });
+  }
+}
+
+function handleOrderSubmit() {
+  const form = document.getElementById('order-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = './login.html';
+      return;
+    }
+
+    const formData = new FormData(form);
+    const itemName = (formData.get('item_name') || '').toString().trim();
+    const quantity = Number(formData.get('quantity')) || 1;
+    const notes = (formData.get('notes') || '').toString().trim();
+
+    const state = getState();
+    state.orders.push({
+      id: Date.now(),
+      userId: currentUser.id,
+      itemName,
+      quantity,
+      notes
+    });
+
+    saveState(state);
+    window.location.href = './my_account.html';
+  });
+}
+
+function init() {
+  bindGlobalHeader();
+  handleRegister();
+  handleLogin();
+  handleOrderSubmit();
+
+  if (document.body.dataset.page === 'account') {
+    renderAccountPage();
+  }
+
+  if (document.body.dataset.page === 'admin') {
+    renderAdminPage();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
