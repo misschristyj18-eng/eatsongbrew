@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">EatSongBrew</div>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a href="/login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container auth-shell">
+    <section class="card form-card">
+      <h2>Register</h2>
+      <form action="/register.php" method="post">
+        <label>
+          Full name
+          <input type="text" name="name" required>
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" required>
+        </label>
+        <button class="button primary" type="submit">Create account</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
