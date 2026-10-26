@@ -3,68 +3,183 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EatSongBrew Deployment Notice</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f7f3ef;
-        color: #1f1f1f;
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-      }
-
-      .card {
-        max-width: 700px;
-        background: white;
-        border-radius: 18px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        padding: 32px;
-      }
-
-      h1 {
-        margin-top: 0;
-      }
-
-      .warning {
-        display: inline-block;
-        background: #fff3d6;
-        color: #6c4c00;
-        padding: 8px 12px;
-        border-radius: 8px;
-        margin-bottom: 16px;
-        font-weight: 600;
-      }
-
-      code {
-        background: #f3f1ef;
-        padding: 2px 6px;
-        border-radius: 6px;
-      }
-    </style>
+    <title>EatSongBrew | Coffee & Brunch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="card">
-      <div class="warning">Deployment note</div>
-      <h1>EatSongBrew needs PHP hosting</h1>
-      <p>
-        This app is a PHP project and cannot run directly on Vercel as-is.
-        Vercel does not execute the PHP files in <code>htdocs/</code> the way a PHP host does.
-      </p>
-      <p>
-        The app is intended to run from a PHP-enabled server or local PHP environment,
-        for example with:<br />
-        <code>php -S localhost:8000 -t htdocs</code>
-      </p>
-      <p>
-        To deploy successfully, use a PHP hosting provider such as Render, Railway, Hostinger,
-        cPanel hosting, or convert the project into a Node/Vercel app.
-      </p>
-      <p>
-        For local testing, open:<br />
-        <code>http://localhost:8000/index.php</code>
-      </p>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">EatSongBrew</div>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#menu">Menu</a>
+          <a href="#story">Our Story</a>
+          <a href="#contact">Contact</a>
+          <a id="nav-login" href="./login.html">Login</a>
+          <a id="nav-register" href="./register.html">Register</a>
+          <a id="nav-logout" href="./index.html" class="hidden">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Freshly brewed daily</p>
+            <h1>Good coffee. Better mornings.</h1>
+            <p>
+              Seasonal drinks, cozy brunch plates, and a warm neighborhood vibe—crafted for the
+              moments that matter most.
+            </p>
+            <div class="hero-actions">
+              <a id="cta-link" class="button primary" href="./register.html">Create an account</a>
+              <a class="button secondary" href="#menu">View menu</a>
+            </div>
+            <div class="mini-stats">
+              <div><strong>4.9/5</strong><span>Guest rating</span></div>
+              <div><strong>12k+</strong><span>Cups served</span></div>
+              <div><strong>7 min</strong><span>Fast pickup</span></div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="image-panel">
+              <div class="badge">Popular today</div>
+              <div class="drink-card">
+                <h3>Signature Brew</h3>
+                <p>Slow-roasted espresso with a caramel finish</p>
+                <span>$5.50</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="container section-block">
+        <div class="section-heading">
+          <p class="eyebrow dark">Featured menu</p>
+          <h2>What we’re serving</h2>
+        </div>
+
+        <div class="grid three">
+          <article class="card menu-item">
+            <h3>Signature Brew</h3>
+            <p>Rich espresso, velvety crema, and a smooth finish.</p>
+            <div class="menu-meta"><strong>$5.50</strong><span>Espresso</span></div>
+          </article>
+          <article class="card menu-item">
+            <h3>Garden Matcha</h3>
+            <p>Bright matcha blended with oat milk and vanilla.</p>
+            <div class="menu-meta"><strong>$6.00</strong><span>Matcha</span></div>
+          </article>
+          <article class="card menu-item">
+            <h3>Breakfast Toast</h3>
+            <p>Avocado toast with chili flakes, lemon, and herbs.</p>
+            <div class="menu-meta"><strong>$8.00</strong><span>Brunch</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="story" class="section-block story">
+        <div class="container story-grid">
+          <div class="story-copy">
+            <p class="eyebrow dark">Our story</p>
+            <h2>Built for slow mornings and lively afternoons.</h2>
+            <p>
+              EatSongBrew started with one idea: craft a comfort-first café where quality coffee meets
+              feel-good food. Every beverage is made fresh, and every plate is designed to feel like a treat.
+            </p>
+            <p>
+              From first sip to last bite, we focus on flavor, hospitality, and a space that makes people want to stay a little longer.
+            </p>
+          </div>
+          <div class="story-box card">
+            <ul>
+              <li>Locally roasted beans</li>
+              <li>Fresh seasonal ingredients</li>
+              <li>Friendly neighborhood service</li>
+              <li>Fast online ordering</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section-block">
+        <div class="section-heading">
+          <p class="eyebrow dark">Why guests love us</p>
+          <h2>Designed for everyday rituals</h2>
+        </div>
+
+        <div class="grid three features">
+          <article class="card feature">
+            <h3>Perfect coffee</h3>
+            <p>Expertly roasted, carefully brewed, and served with consistency.</p>
+          </article>
+          <article class="card feature">
+            <h3>Fresh all day</h3>
+            <p>Simple ingredients, bright flavors, and satisfying brunch favorites.</p>
+          </article>
+          <article class="card feature">
+            <h3>Easy ordering</h3>
+            <p>Order your favorites, save preferences, and come back again soon.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container section-block order-box-wrap">
+        <div class="card order-box">
+          <h2>Place an order</h2>
+          <form id="order-form">
+            <div class="form-grid">
+              <label>
+                Item
+                <select name="item_name">
+                  <option>Signature Brew</option>
+                  <option>Garden Matcha</option>
+                  <option>Breakfast Toast</option>
+                  <option>Cold Brew</option>
+                </select>
+              </label>
+              <label>
+                Quantity
+                <input type="number" name="quantity" min="1" value="1" required />
+              </label>
+            </div>
+            <label>
+              Notes
+              <textarea name="notes" rows="3" placeholder="Add extra notes for your order..."></textarea>
+            </label>
+            <button class="button primary" type="submit">Save order</button>
+          </form>
+        </div>
+      </section>
     </main>
+
+    <footer id="contact" class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand footer-brand">EatSongBrew</div>
+          <p>Craft coffee, brunch plates, and everyday comfort—served with a smile.</p>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <p>145 Orchard Lane<br />Brookside, CA</p>
+        </div>
+        <div>
+          <h4>Hours</h4>
+          <p>Mon–Sat: 7:30 AM – 8:00 PM<br />Sun: 8:00 AM – 4:00 PM</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>(555) 220-9981<br />hello@eatsongbrew.com</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./app.js"></script>
   </body>
 </html>
