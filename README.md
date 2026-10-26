@@ -1,3 +1,8 @@
+# eatsongbrew
+
+Repository: https://github.com/misschristyj18-eng/eatsongbrew
+
+```json
 {
   "rewrites": [
     { "source": "/login", "destination": "/login.html" },
@@ -7,3 +12,4 @@
     { "source": "/", "destination": "/index.html" }
   ]
 }
+```
