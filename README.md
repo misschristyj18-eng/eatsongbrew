@@ -1,6 +1,6 @@
-# eatsongbrew
+# eatsongbrew-app
 
-Repository: https://github.com/misschristyj18-eng/eatsongbrew
+Repository: https://github.com/misschristyj18-eng/eatsongbrew-app
 
 ```json
 {
