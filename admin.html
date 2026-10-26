@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account | EatSongBrew</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">EatSongBrew</div>
+        <nav>
+          <a href="./index.html">Home</a>
+          <a href="./index.html" id="logout-link">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2 id="welcome-name">Welcome</h2>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <p><strong>Role:</strong> <span id="user-role"></span></p>
+      </section>
+
+      <section class="card">
+        <h3>Your orders</h3>
+        <ul id="orders-list" class="order-list"></ul>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

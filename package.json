@@ -1,0 +1,30 @@
+# EatSongBrew
+
+This version is Vercel-friendly and does not require PHP.
+
+## What changed
+- The app is now a static front-end using HTML, CSS, and JavaScript
+- User data and orders are stored in `localStorage` for demo purposes
+- The app is compatible with Vercel deployment
+
+## Run locally
+Open the repository folder in a static server or use a simple local server:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open:
+
+```text
+http://localhost:8000/index.html
+```
+
+## Default admin login
+- Email: admin@eatsongbrew.com
+- Password: admin123
+
+## Deploy to Vercel
+- Import the repository into Vercel
+- Use the default static deployment settings
+- No PHP runtime is required
