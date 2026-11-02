@@ -1,0 +1,5 @@
+{
+  "framework": null,
+  "buildCommand": "unzip -o \"htdocs (1).zip\" -d .",
+  "outputDirectory": "htdocs"
+}
